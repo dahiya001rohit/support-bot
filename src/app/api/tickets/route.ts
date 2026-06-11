@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/server";
+import { getBusinessIdFromSession } from "@/lib/auth";
 
 export async function GET(req: NextRequest) {
-  const businessId = req.nextUrl.searchParams.get("business_id");
+  const businessId = await getBusinessIdFromSession();
+  if (!businessId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const status = req.nextUrl.searchParams.get("status");
   const priority = req.nextUrl.searchParams.get("priority");
 
-  if (!businessId) {
-    return NextResponse.json({ error: "business_id required" }, { status: 400 });
-  }
 
   const supabase = supabaseAdmin();
   let query = supabase

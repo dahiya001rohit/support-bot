@@ -3,6 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase/server";
 import { parseFile } from "@/lib/parser";
 import { chunkText } from "@/lib/chunker";
 import { embedBatch } from "@/lib/embeddings";
+import { getBusinessIdFromSession } from "@/lib/auth";
 
 const ALLOWED_TYPES = ["pdf", "docx", "txt", "md"];
 
@@ -10,11 +11,14 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
-    const businessId = formData.get("business_id") as string | null;
+    const businessId = await getBusinessIdFromSession();
+    if (!businessId) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-    if (!file || !businessId) {
+    if (!file) {
       return NextResponse.json(
-        { error: "file and business_id are required" },
+        { error: "file is required" },
         { status: 400 }
       );
     }
@@ -94,21 +98,21 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(req: NextRequest) {
-  const businessId = req.nextUrl.searchParams.get("business_id");
-  if (!businessId) {
-    return NextResponse.json({ error: "business_id required" }, { status: 400 });
-  }
+export async function GET() {
+    const businessId = await getBusinessIdFromSession();
+    if (!businessId) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  const supabase = supabaseAdmin();
-  const { data, error } = await supabase
-    .from("documents")
-    .select("*")
-    .eq("business_id", businessId)
-    .order("created_at", { ascending: false });
+    const supabase = supabaseAdmin();
+    const { data, error } = await supabase
+        .from("documents")
+        .select("*")
+        .eq("business_id", businessId)
+        .order("created_at", { ascending: false });
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-  return NextResponse.json(data);
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json(data);
 }

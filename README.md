@@ -325,7 +325,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=eyJhbGciOiJIUzI1NiIs...
 SUPABASE_SECRET_KEY=eyJhbGciOiJIUzI1NiIs...              # server-only, never NEXT_PUBLIC_
 GROQ_API_KEY=gsk_...                                      # console.groq.com
 GEMINI_API_KEY=AIza...                                    # aistudio.google.com
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=https://support-bot-phi.vercel.app/
 ```
 
 **1. Create Supabase project:**

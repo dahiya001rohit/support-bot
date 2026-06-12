@@ -41,4 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # supabase CLI local state
-supabase/.temp/test.html
+supabase/.temp/
+
+test.html

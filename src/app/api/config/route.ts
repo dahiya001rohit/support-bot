@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { getBusinessIdFromSession } from "@/lib/auth";
 
+type ConfigUpdateBody = {
+  bot_name?: string;
+  welcome_message?: string;
+  personality?: string;
+  escalation_rules?: string;
+  suggested_questions?: string[];
+};
+
 export async function GET() {
     const businessId = await getBusinessIdFromSession();
     if (!businessId) {
@@ -27,17 +35,12 @@ export async function PUT(req: NextRequest) {
     if (!businessId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const { bot_name, welcome_message, personality, escalation_rules } =
-        await req.json();
-
-    if (!businessId) {
-        return NextResponse.json({ error: "business_id required" }, { status: 400 });
-    }
+    const { bot_name, welcome_message, personality, escalation_rules, suggested_questions }: ConfigUpdateBody =  await req.json();
 
     const supabase = supabaseAdmin();
     const { data, error } = await supabase
         .from("bot_configs")
-        .update({ bot_name, welcome_message, personality, escalation_rules })
+        .update({ bot_name, welcome_message, personality, escalation_rules, suggested_questions })
         .eq("business_id", businessId)
         .select()
         .single();

@@ -22,6 +22,7 @@ export type Database = {
           escalation_rules: string
           id: string
           personality: string
+          suggested_questions: Json | null
           welcome_message: string
         }
         Insert: {
@@ -31,6 +32,7 @@ export type Database = {
           escalation_rules?: string
           id?: string
           personality?: string
+          suggested_questions?: Json | null
           welcome_message?: string
         }
         Update: {
@@ -40,6 +42,7 @@ export type Database = {
           escalation_rules?: string
           id?: string
           personality?: string
+          suggested_questions?: Json | null
           welcome_message?: string
         }
         Relationships: [

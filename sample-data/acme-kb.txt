@@ -1,0 +1,59 @@
+# Acme Corp — Customer Support Knowledge Base
+
+## About Acme Corp
+Acme Corp is an online electronics retailer founded in 2018, headquartered in Pune, India. We sell smartphones, laptops, audio gear, wearables, and smart home devices across India, with international shipping to 40+ countries. Over 2 million orders fulfilled. Our mission: premium electronics at honest prices with support that actually helps.
+
+## Refund Policy
+Customers can return products within 30 days of purchase for a full refund. Items must be unused and in their original packaging with all accessories, manuals, and freebies included. Refunds are processed within 5-7 business days to the original payment method. Shipping costs are non-refundable. To start a refund, contact support@acmecorp.com with your order number, or use the "Return Item" button in your account's order history.
+
+Products NOT eligible for refund: opened software licenses, gift cards, clearance items marked "final sale", hygiene-sealed products (earphones) once the seal is broken, and customized/engraved items.
+
+Damaged-on-arrival items: report within 48 hours of delivery with photos. We arrange free pickup and offer instant replacement or full refund including shipping.
+
+## Exchange Policy
+Exchanges are available within 15 days for size or color variants of the same product, subject to stock. One exchange per order. The replacement ships only after the original item passes our quality check (2-3 days after pickup).
+
+## Shipping Policy
+- Standard shipping (India): 3-5 business days, free on orders above Rs. 999, otherwise Rs. 79
+- Express shipping (India): 1-2 business days, Rs. 199 flat
+- Same-day delivery: available in Mumbai, Delhi, Bangalore, Pune for orders placed before 12 PM, Rs. 299
+- International shipping: 7-14 business days, rates calculated at checkout; customs duties are the customer's responsibility
+
+All orders include tracking. Tracking links are emailed and sent via SMS within 24 hours of dispatch. Orders placed before 2 PM IST ship the same day. We do not ship on Sundays or public holidays.
+
+## Order Tracking
+Track your order at acmecorp.com/track using your order number and email. If tracking shows no movement for 48 hours, contact support and we will investigate with the courier. If a package is marked delivered but not received, report within 24 hours — we initiate a courier investigation that takes 3-5 business days.
+
+## Order Cancellation
+Orders can be cancelled free of charge before they ship (status "Processing"). Once shipped, cancellation is not possible — refuse delivery or use the return process instead. Prepaid cancellations are refunded in 3-5 business days.
+
+## Payment Methods
+We accept UPI, credit/debit cards (Visa, Mastercard, RuPay, Amex), net banking, popular wallets (Paytm, PhonePe), and cash on delivery (COD). COD is available for orders under Rs. 50,000 and carries a Rs. 49 handling fee. EMI options are available on orders above Rs. 5,000 through major banks, including no-cost EMI on select products during sale events.
+
+Failed payments: if money was deducted but the order wasn't created, the amount auto-reverses within 5-7 business days. If it doesn't, share your transaction reference with support.
+
+## Warranty
+All products carry a minimum 1-year manufacturer warranty. Extended warranty (Acme Shield) can be purchased within 30 days of delivery: 1 extra year for 8% of product price, 2 extra years for 14%. Warranty claims require the original invoice (available anytime in your account). Physical damage, water damage, and unauthorized repairs are not covered under standard warranty. Acme Shield Plus (18% of product price) adds accidental and liquid damage protection.
+
+Warranty claim process: raise a claim at acmecorp.com/warranty → our team responds within 24 hours → free pickup for inspection → repair, replacement, or voucher within 7-10 business days.
+
+## Pricing Plans (Acme Business)
+For corporate customers, Acme Business offers:
+- Starter: Rs. 4,999/month — up to 10 employee devices, standard support, GST invoicing
+- Growth: Rs. 14,999/month — up to 50 devices, priority support, dedicated account manager, bulk-order discounts up to 12%
+- Enterprise: custom pricing — unlimited devices, 24/7 support, on-site service, custom procurement portal
+
+Annual billing saves 15% on all plans. A 14-day free trial is available on Starter and Growth.
+
+## Loyalty Program (Acme Coins)
+Earn 2 Acme Coins per Rs. 100 spent. 100 coins = Rs. 10 off. Coins expire 12 months after earning. Coins are not earned on COD orders or during coin redemption. Referral bonus: 500 coins when a referred friend completes their first order above Rs. 2,000.
+
+## Account & Security
+Reset your password at acmecorp.com/reset. We will never ask for your password, OTP, or full card number over phone or email. Report suspicious messages to security@acmecorp.com. Accounts inactive for 24 months are archived; contact support to restore. Two-factor authentication can be enabled in Account → Security.
+
+## Contact & Support Hours
+- Email: support@acmecorp.com (response within 24 hours)
+- Phone: 1800-123-4567 (toll free)
+- Support hours: Monday to Saturday, 9 AM to 8 PM IST
+- Live chat available on our website during support hours
+- Corporate/B2B queries: business@acmecorp.com

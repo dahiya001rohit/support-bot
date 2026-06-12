@@ -7,7 +7,7 @@
 
 A multi-tenant SaaS platform that lets any business create and deploy an AI-powered customer support assistant trained on their own knowledge base. The assistant answers customer questions from uploaded documents using a raw RAG pipeline, automatically escalates important issues, creates support tickets with priority, and ships as a one-line embeddable chat widget.
 
-**Live Demo:** [Try the widget](https://support-ai-demo.vercel.app) | **Admin Dashboard:** [Sign in](https://support-ai-demo.vercel.app/login)  
+**Live Demo:** [Try the widget](https://REAL_URL) | **Admin Dashboard:** [Sign in](https://REAL_URL/login)  
 **Demo credentials:** `demo@example.com` / `demo123` | **Second tenant:** `tenant2@example.com` / `demo123` (demonstrates isolation)
 
 Built for assessment submission. Security audit: [AUDIT_FINDINGS.md](AUDIT_FINDINGS.md).
@@ -16,17 +16,17 @@ Built for assessment submission. Security audit: [AUDIT_FINDINGS.md](AUDIT_FINDI
 
 ## Quick Demo (30 seconds)
 
-1. **Try the widget** on the [demo landing page](https://support-ai-demo.vercel.app)
+1. **Try the widget** on the [demo landing page](https://REAL_URL)
 2. **Test prompts:**
    - "What payment methods do you accept?" — returns direct answer
    - "Is COD available for a ₹60,000 order?" — tests precision (limit is ₹50,000)
    - "My laptop arrived broken, I want a refund now" — triggers escalation + contact form
    - "Write me a Python script" — bot politely refuses off-topic requests
-3. **Admin dashboard:** [demo@example.com](https://support-ai-demo.vercel.app/login) → upload docs → see conversations & tickets
+3. **Admin dashboard:** [demo@example.com](https://REAL_URL/login) → upload docs → see conversations & tickets
 
 Embedded on any website with:
 ```html
-<script src="https://support-ai-demo.vercel.app/widget.js" data-business-id="YOUR_ID" data-api-url="https://support-ai-demo.vercel.app"></script>
+<script src="https://REAL_URL/widget.js" data-business-id="YOUR_ID" data-api-url="https://REAL_URL"></script>
 ```
 
 <!-- Widget demo GIF would be embedded here: shows user clicking chat bubble, asking question, seeing answer, then triggering escalation -->
@@ -286,9 +286,9 @@ businesses
 
 ```html
 <script
-  src="https://YOUR-DEPLOY-URL.vercel.app/widget.js"
+  src="https://REAL_URL/widget.js"
   data-business-id="YOUR_BUSINESS_ID"
-  data-api-url="https://YOUR-DEPLOY-URL.vercel.app"
+  data-api-url="https://REAL_URL"
 ></script>
 ```
 
@@ -311,7 +311,7 @@ Widget features:
 **Prerequisites:** Node 20+, a Supabase project, Groq + Gemini API keys (both free tier).
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/support-ai.git
+git clone https://github.com/dahiya001rohit/support-bot.git
 cd support-ai
 npm install
 cp .env.example .env.local   # fill in the values below

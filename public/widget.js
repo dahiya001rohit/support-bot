@@ -30,26 +30,27 @@
   style.textContent = `
     .sai-bubble {
       position: fixed; bottom: 24px; right: 24px; z-index: 999999;
-      width: 54px; height: 54px; border-radius: 18px;
-      background: #0f172a;
-      color: #fff; border: none; cursor: pointer;
-      font-size: 22px; box-shadow: 0 4px 14px rgba(15,23,42,.35);
+      width: 52px; height: 52px; border-radius: 16px;
+      background: #1a1b1e; border: 1px solid rgba(255,255,255,.10);
+      color: #fff; cursor: pointer;
+      font-size: 20px; box-shadow: 0 4px 20px rgba(0,0,0,.5);
       display: flex; align-items: center; justify-content: center;
-      transition: transform .15s ease, border-radius .2s ease;
+      transition: transform .15s ease, border-radius .2s ease, box-shadow .15s ease;
     }
-    .sai-bubble:hover { transform: translateY(-2px); border-radius: 50%; }
+    .sai-bubble:hover { transform: translateY(-2px); border-radius: 50%; box-shadow: 0 8px 24px rgba(0,0,0,.6); }
     .sai-window {
-      position: fixed; bottom: 90px; right: 24px; z-index: 999999;
-      width: 350px; max-width: calc(100vw - 32px); height: 500px;
+      position: fixed; bottom: 88px; right: 24px; z-index: 999999;
+      width: 348px; max-width: calc(100vw - 32px); height: 496px;
       max-height: calc(100vh - 120px);
-      background: #fff; border-radius: 16px;
-      box-shadow: 0 20px 50px -12px rgba(15,23,42,.3), 0 0 0 1px rgba(15,23,42,.05);
+      background: #1a1b1e; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 24px 48px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
       display: flex; flex-direction: column; overflow: hidden;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       opacity: 0; pointer-events: none;
-      transform: translateY(12px) scale(.97);
+      transform: translateY(10px) scale(.97);
       transform-origin: bottom right;
-      transition: opacity .2s ease, transform .2s ease;
+      transition: opacity .18s ease, transform .18s ease;
       -webkit-font-smoothing: antialiased;
     }
     .sai-window.open {
@@ -57,94 +58,98 @@
       transform: translateY(0) scale(1);
     }
     .sai-header {
-      background: #0f172a;
-      color: #fff; padding: 14px 16px;
+      background: #1a1b1e; border-bottom: 1px solid rgba(255,255,255,.07);
+      color: #e6e6e9; padding: 12px 14px;
       display: flex; align-items: center; gap: 10px;
     }
     .sai-header-avatar {
-      width: 34px; height: 34px; border-radius: 10px;
-      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      width: 32px; height: 32px; border-radius: 8px;
+      background: #5e6ad2;
       display: flex; align-items: center; justify-content: center;
-      font-size: 16px; font-weight: 700; color: #fff;
+      font-size: 14px; font-weight: 700; color: #fff;
     }
-    .sai-header-name { font-weight: 600; font-size: 14.5px; }
-    .sai-header-status { font-size: 11.5px; opacity: .7; margin-top: 1px; }
+    .sai-header-name { font-weight: 600; font-size: 13.5px; color: #e6e6e9; }
+    .sai-header-status { font-size: 11px; color: #8a8f98; margin-top: 1px; }
     .sai-header-status::before {
-      content: "\\25CF"; color: #4ade80; margin-right: 4px; font-size: 9px;
+      content: "\\25CF"; color: #4ade80; margin-right: 4px; font-size: 8px;
     }
     .sai-messages {
-      flex: 1; overflow-y: auto; padding: 14px;
-      display: flex; flex-direction: column; gap: 8px;
-      background: #fafbfc;
+      flex: 1; overflow-y: auto; padding: 12px;
+      display: flex; flex-direction: column; gap: 7px;
+      background: #0e0f11;
     }
+    .sai-messages::-webkit-scrollbar { width: 4px; }
+    .sai-messages::-webkit-scrollbar-track { background: transparent; }
+    .sai-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
     .sai-msg {
-      max-width: 85%; padding: 10px 13px; border-radius: 14px;
-      font-size: 14px; line-height: 1.5; white-space: pre-wrap;
+      max-width: 85%; padding: 9px 12px; border-radius: 10px;
+      font-size: 13.5px; line-height: 1.5; white-space: pre-wrap;
       word-wrap: break-word;
-      animation: sai-in .2s ease;
+      animation: sai-in .18s ease;
     }
     @keyframes sai-in {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(5px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .sai-msg.user {
-      align-self: flex-end; background: #0f172a; color: #fff;
-      border-bottom-right-radius: 4px;
+      align-self: flex-end; background: #5e6ad2; color: #fff;
+      border-bottom-right-radius: 3px;
     }
     .sai-msg.bot {
-      align-self: flex-start; background: #fff; color: #1e293b;
-      border: 1px solid #eef2f6;
-      border-bottom-left-radius: 4px;
-      box-shadow: 0 1px 2px rgba(15,23,42,.05);
+      align-self: flex-start; background: #232428; color: #e6e6e9;
+      border: 1px solid rgba(255,255,255,.07);
+      border-bottom-left-radius: 3px;
     }
-    .sai-msg.bot a { color: #2563eb; }
+    .sai-msg.bot a { color: #818cf8; }
     .sai-msg.bot table { border-collapse: collapse; margin: 6px 0; }
     .sai-msg.bot td, .sai-msg.bot th {
-      border: 1px solid #d8dee7; padding: 5px 9px; font-size: 13px;
+      border: 1px solid rgba(255,255,255,.1); padding: 4px 8px; font-size: 12.5px;
     }
     .sai-suggestions {
-      display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 10px;
-      background: #fafbfc;
+      display: flex; flex-wrap: wrap; gap: 5px; padding: 0 12px 8px;
+      background: #0e0f11;
     }
     .sai-chip {
-      border: 1px solid #d3dce8; background: #fff; border-radius: 16px;
-      padding: 6px 12px; font-size: 12.5px; cursor: pointer; color: #334155;
+      border: 1px solid rgba(255,255,255,.1); background: #1a1b1e; border-radius: 12px;
+      padding: 5px 11px; font-size: 12px; cursor: pointer; color: #8a8f98;
       transition: background .12s ease, border-color .12s ease, color .12s ease;
     }
-    .sai-chip:hover { background: #0f172a; border-color: #0f172a; color: #fff; }
+    .sai-chip:hover { background: #5e6ad2; border-color: #5e6ad2; color: #fff; }
     .sai-inputrow {
-      display: flex; border-top: 1px solid #e8ecf1; padding: 12px;
-      gap: 8px; background: #fff;
+      display: flex; border-top: 1px solid rgba(255,255,255,.07); padding: 10px;
+      gap: 7px; background: #1a1b1e;
     }
     .sai-input {
-      flex: 1; border: 1px solid #d3dce8; border-radius: 10px;
-      padding: 10px 13px; font-size: 14px; outline: none;
+      flex: 1; border: 1px solid rgba(255,255,255,.1); border-radius: 8px;
+      padding: 8px 11px; font-size: 13.5px; outline: none;
+      background: #0e0f11; color: #e6e6e9;
       transition: border-color .12s ease, box-shadow .12s ease;
     }
-    .sai-input:focus { border-color: #0f172a; box-shadow: 0 0 0 3px rgba(15,23,42,.08); }
+    .sai-input::placeholder { color: #62666d; }
+    .sai-input:focus { border-color: #5e6ad2; box-shadow: 0 0 0 3px rgba(94,106,210,.18); }
     .sai-send {
-      background: #0f172a; color: #fff; border: none; border-radius: 50%;
-      width: 40px; height: 40px; cursor: pointer; font-size: 16px;
+      background: #5e6ad2; color: #fff; border: none; border-radius: 50%;
+      width: 36px; height: 36px; cursor: pointer; font-size: 14px;
       display: flex; align-items: center; justify-content: center;
-      transition: background .12s ease;
-      flex-shrink: 0;
+      transition: background .12s ease, transform .1s ease;
+      flex-shrink: 0; align-self: center;
     }
-    .sai-send:hover { background: #1e293b; }
-    .sai-send:disabled { opacity: .5; cursor: default; }
+    .sai-send:hover { background: #6e7ae2; transform: scale(1.05); }
+    .sai-send:disabled { opacity: .4; cursor: default; transform: none; }
     .sai-typing {
-      padding: 0 14px 8px; background: #fafbfc;
+      padding: 0 12px 7px; background: #0e0f11;
       display: none; align-items: center; gap: 3px;
     }
     .sai-typing.show { display: flex; }
     .sai-typing span {
-      width: 7px; height: 7px; border-radius: 50%; background: #94a3b8;
+      width: 6px; height: 6px; border-radius: 50%; background: #62666d;
       animation: sai-bounce 1.2s infinite;
     }
     .sai-typing span:nth-child(2) { animation-delay: .15s; }
     .sai-typing span:nth-child(3) { animation-delay: .3s; }
     @keyframes sai-bounce {
-      0%, 60%, 100% { transform: translateY(0); opacity: .5; }
-      30% { transform: translateY(-5px); opacity: 1; }
+      0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+      30% { transform: translateY(-4px); opacity: 1; }
     }
   `;
   document.head.appendChild(style);
@@ -178,6 +183,7 @@
 
   // UI
   const bubble = document.createElement("button");
+  bubble.type = "button";
   bubble.className = "sai-bubble";
   bubble.innerHTML = "\uD83D\uDCAC";
   bubble.setAttribute("aria-label", "Open support chat");
@@ -207,6 +213,7 @@
   const messagesEl = win.querySelector(".sai-messages");
   const inputEl = win.querySelector(".sai-input");
   const sendBtn = win.querySelector(".sai-send");
+    sendBtn.type = "button";
   const typingEl = win.querySelector(".sai-typing");
   const suggestionsEl = win.querySelector(".sai-suggestions");
   const headerNameEl = win.querySelector(".sai-header-name");
@@ -250,6 +257,36 @@
     });
   }
 
+  function addContactForm(ticketId) {
+    const div = document.createElement("div");
+    div.className = "sai-msg bot";
+    div.innerHTML = `
+        <div style="font-size:13px;margin-bottom:8px;">Leave your details so our team can follow up:</div>
+        <input class="sai-cf-name" placeholder="Your name" style="width:100%;box-sizing:border-box;margin-bottom:6px;padding:7px 10px;border:1px solid #d3dce8;border-radius:8px;font-size:13px;" />
+        <input class="sai-cf-email" placeholder="Email" type="email" style="width:100%;box-sizing:border-box;margin-bottom:6px;padding:7px 10px;border:1px solid #d3dce8;border-radius:8px;font-size:13px;" />
+        <button class="sai-cf-send" type="button" style="background:#5e6ad2;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;">Submit</button>
+    `;
+    const btn = div.querySelector(".sai-cf-send");
+    btn.onclick = async () => {
+        const name = div.querySelector(".sai-cf-name").value;
+        const email = div.querySelector(".sai-cf-email").value;
+        if (!name.trim() || !email.includes("@")) return;
+        btn.disabled = true;
+        try {
+        await fetch(`${BASE_URL}/api/tickets/${ticketId}/contact`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ customer_name: name, customer_email: email, business_id: BUSINESS_ID }),
+        });
+        div.innerHTML = `<div style="font-size:13px;">Thanks! Our team will reach out to <b>${email.replace(/</g,"&lt;")}</b>.</div>`;
+        } catch {
+        btn.disabled = false;
+        }
+    };
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
   async function send(text) {
     const message = (text ?? inputEl.value).trim();
     if (!message) return;
@@ -275,8 +312,9 @@
         addMessage(data.error || "Something went wrong. Please try again.", "bot");
       } else {
         addMessage(data.reply, "bot");
-        if (data.ticket_created) {
-          addMessage("A support ticket has been created. Our team will follow up with you.", "bot");
+        if (data.ticket_created && data.ticket_id) {
+            addMessage("A support ticket has been created. Our team will follow up with you.", "bot");
+            addContactForm(data.ticket_id);
         }
       }
     } catch {
@@ -302,6 +340,9 @@
 
   sendBtn.onclick = () => send();
   inputEl.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") send();
+    if (e.key === "Enter") {
+        e.preventDefault();
+        send()
+    };
   });
 })();

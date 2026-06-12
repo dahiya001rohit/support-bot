@@ -3,6 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase/server";
 import { searchChunks, buildSystemPrompt } from "@/lib/rag";
 import { getBotReply } from "@/lib/groq";
 
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -45,6 +46,7 @@ export async function POST(req: NextRequest) {
       .from("conversations")
       .select("*")
       .eq("session_id", session_id)
+      .eq("business_id", business_id)
       .single();
 
     if (!conversation) {
@@ -97,32 +99,45 @@ export async function POST(req: NextRequest) {
 
     // 8. escalation → create ticket (if not already escalated)
     let ticketCreated = false;
+    let ticketId: string | null = null;
     if (botReply.should_escalate && !conversation.escalated) {
-      await supabase.from("tickets").insert({
+    const { data: ticket } = await supabase
+        .from("tickets")
+        .insert({
         business_id,
         conversation_id: conversation.id,
         customer_name: conversation.customer_name ?? "Anonymous",
         customer_email: conversation.customer_email ?? "not-provided",
         query: message,
         priority: botReply.priority,
-      });
+        })
+        .select("id")
+        .single();
 
-      await supabase
+    ticketId = ticket?.id ?? null;
+
+    await supabase
         .from("conversations")
         .update({ escalated: true })
         .eq("id", conversation.id);
 
-      ticketCreated = true;
+    ticketCreated = true;
     }
-
+    await supabase.from("messages").insert({
+        conversation_id: conversation.id,
+        business_id,
+        role: "system",
+        content: `Ticket created — priority: ${botReply.priority}. Reason: ${botReply.reason}`,
+    });
     // 9. respond to widget
     return NextResponse.json(
-      {
-        reply: botReply.reply,
-        escalated: botReply.should_escalate,
-        ticket_created: ticketCreated,
-      },
-      { headers: corsHeaders }
+        {
+            reply: botReply.reply,
+            escalated: botReply.should_escalate,
+            ticket_created: ticketCreated,
+            ticket_id: ticketId,
+        },
+        { headers: corsHeaders }
     );
   } catch (err) {
     const message = err instanceof Error ? err.message : "Chat failed";

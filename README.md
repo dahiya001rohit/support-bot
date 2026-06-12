@@ -28,7 +28,7 @@ Built for the Magentic AI engineering assessment.
 ## Architecture Overview
 
 ```
-                    ┌─────────────────────────────────────────┐
+                    ┌──────────────────────────────────────────┐
                     │              Vercel (Next.js 16)         │
                     │                                          │
   Customer site ────┼─► /widget.js (vanilla JS, embeddable)    │

@@ -4,11 +4,13 @@ import { parseFile } from "@/lib/parser";
 import { chunkText } from "@/lib/chunker";
 import { embedBatch } from "@/lib/embeddings";
 import { getBusinessIdFromSession } from "@/lib/auth";
+import { withErrorHandler } from "@/lib/api-handler";
 
 const ALLOWED_TYPES = ["pdf", "docx", "txt", "md"];
 
 export async function POST(req: NextRequest) {
-  try {
+  return withErrorHandler(async () => {
+    try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
     const businessId = await getBusinessIdFromSession();
@@ -92,13 +94,15 @@ export async function POST(req: NextRequest) {
         .eq("id", doc.id);
       throw processingError;
     }
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Upload failed";
-    return NextResponse.json({ error: message }, { status: 500 });
-  }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Upload failed";
+      return NextResponse.json({ error: message }, { status: 500 });
+    }
+  });
 }
 
 export async function GET() {
+  return withErrorHandler(async () => {
     const businessId = await getBusinessIdFromSession();
     if (!businessId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -115,4 +119,5 @@ export async function GET() {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
     return NextResponse.json(data);
+  });
 }

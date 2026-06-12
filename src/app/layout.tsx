@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { startServerKeepAlive } from "@/lib/server-keep-alive";
 import "./globals.css";
+
+// Start keep-alive heartbeat on server startup
+if (typeof window === "undefined") {
+  startServerKeepAlive();
+}
 
 const inter = Inter({
   subsets: ["latin"],

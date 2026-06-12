@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { searchChunks, buildSystemPrompt } from "@/lib/rag";
 import { getBotReply } from "@/lib/groq";
-
+import { withErrorHandler } from "@/lib/api-handler";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -15,7 +15,8 @@ export async function OPTIONS() {
 }
 
 export async function POST(req: NextRequest) {
-  try {
+  return withErrorHandler(async () => {
+    try {
     const { business_id, session_id, message } = await req.json();
 
     if (!business_id || !session_id || !message?.trim()) {
@@ -139,11 +140,12 @@ export async function POST(req: NextRequest) {
         },
         { headers: corsHeaders }
     );
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Chat failed";
-    return NextResponse.json(
-      { error: message },
-      { status: 500, headers: corsHeaders }
-    );
-  }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Chat failed";
+      return NextResponse.json(
+        { error: message },
+        { status: 500, headers: corsHeaders }
+      );
+    }
+  });
 }

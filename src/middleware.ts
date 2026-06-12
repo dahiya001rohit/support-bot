@@ -1,7 +1,27 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const BLOCKED_PATHS = [
+  "/admin",
+  "/wp-admin",
+  "/phpMyAdmin",
+  "/.git",
+  "/.env",
+  "/config",
+  "/internal",
+  "/debug",
+];
+
+const ALLOWED_PREFIXES = ["/api", "/dashboard", "/login", "/register", "/_next"];
+
 export async function middleware(req: NextRequest) {
+  const pathname = req.nextUrl.pathname;
+
+  // Redirect blocked paths to home
+  if (BLOCKED_PATHS.some(path => pathname.startsWith(path))) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
   let res = NextResponse.next({ request: req });
 
   const supabase = createServerClient(
@@ -29,11 +49,11 @@ export async function middleware(req: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && req.nextUrl.pathname.startsWith("/dashboard")) {
+  if (!user && pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (user && ["/login", "/register"].includes(req.nextUrl.pathname)) {
+  if (user && ["/login", "/register"].includes(pathname)) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
@@ -41,5 +61,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/register"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

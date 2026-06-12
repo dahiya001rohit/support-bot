@@ -10,8 +10,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log error for debugging (on free tier, keep logging minimal)
-    console.error("App error:", error.message);
+    // Error logged to error boundary, no additional logging needed
   }, [error]);
 
   return (

@@ -9,24 +9,16 @@ let pingTimer: NodeJS.Timeout | null = null;
 export function startServerKeepAlive() {
   if (pingTimer) return; // Already running
 
-  console.log("[Keep-Alive] Starting server keep-alive heartbeat...");
-
   // First ping after 10 minutes
   pingTimer = setInterval(async () => {
     try {
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-      const response = await fetch(`${baseUrl}/api/health`, {
+      await fetch(`${baseUrl}/api/health`, {
         method: "GET",
         headers: { "User-Agent": "Server-Keep-Alive" },
       });
-
-      if (response.ok) {
-        console.log(`[Keep-Alive] Heartbeat sent at ${new Date().toISOString()}`);
-      } else {
-        console.warn(`[Keep-Alive] Heartbeat failed: ${response.status}`);
-      }
     } catch (error) {
-      console.error("[Keep-Alive] Error sending heartbeat:", error);
+      // Silently fail
     }
   }, PING_INTERVAL);
 
@@ -48,6 +40,5 @@ export function stopServerKeepAlive() {
   if (pingTimer) {
     clearInterval(pingTimer);
     pingTimer = null;
-    console.log("[Keep-Alive] Stopped server keep-alive");
   }
 }

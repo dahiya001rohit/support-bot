@@ -26,6 +26,10 @@ export async function GET() {
       .eq("escalated", true),
   ]);
 
+  if (conversations.error || tickets.error || escalated.error) {
+    return NextResponse.json({ error: "Failed to fetch analytics" }, { status: 500 });
+  }
+
   const totalConversations = conversations.count ?? 0;
   const escalatedCount = escalated.count ?? 0;
   const ticketList = tickets.data ?? [];

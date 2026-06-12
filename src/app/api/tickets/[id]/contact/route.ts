@@ -23,18 +23,18 @@ export async function PATCH(
   }
 
   const supabase = supabaseAdmin();
-  const { error } = await supabase
+  const { error, data } = await supabase
     .from("tickets")
     .update({ customer_name: customer_name.trim(), customer_email: customer_email.trim() })
     .eq("id", id)
     .eq("business_id", business_id)
-    .eq("customer_name", "Anonymous");
+    .eq("customer_name", "Anonymous")
+    .select()
+    .single();
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500, headers: corsHeaders });
+  if (error || !data) {
+    return NextResponse.json({ error: "Ticket not found or already updated" }, { status: 404, headers: corsHeaders });
   }
-
-
 
   return NextResponse.json({ ok: true }, { headers: corsHeaders });
 }

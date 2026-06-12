@@ -81,12 +81,15 @@ export async function POST(req: NextRequest) {
 
     // 6. build prompt + call LLM
     const systemPrompt = buildSystemPrompt(config, chunks);
+    const validRoles = ["user", "assistant", "system"];
     const botReply = await getBotReply([
       { role: "system", content: systemPrompt },
-      ...(history ?? []).map((m) => ({
-        role: m.role as "user" | "assistant",
-        content: m.content,
-      })),
+      ...(history ?? [])
+        .filter((m) => validRoles.includes(m.role))
+        .map((m) => ({
+          role: m.role as "user" | "assistant",
+          content: m.content,
+        })),
       { role: "user", content: message },
     ]);
 
@@ -102,34 +105,35 @@ export async function POST(req: NextRequest) {
     let ticketCreated = false;
     let ticketId: string | null = null;
     if (botReply.should_escalate && !conversation.escalated) {
-    const { data: ticket } = await supabase
+      const { data: ticket } = await supabase
         .from("tickets")
         .insert({
-        business_id,
-        conversation_id: conversation.id,
-        customer_name: conversation.customer_name ?? "Anonymous",
-        customer_email: conversation.customer_email ?? "not-provided",
-        query: message,
-        priority: botReply.priority,
+          business_id,
+          conversation_id: conversation.id,
+          customer_name: conversation.customer_name ?? "Anonymous",
+          customer_email: conversation.customer_email ?? "not-provided",
+          query: message,
+          priority: botReply.priority,
         })
         .select("id")
         .single();
 
-    ticketId = ticket?.id ?? null;
+      ticketId = ticket?.id ?? null;
 
-    await supabase
+      await supabase
         .from("conversations")
         .update({ escalated: true })
         .eq("id", conversation.id);
 
-    ticketCreated = true;
-    }
-    await supabase.from("messages").insert({
+      await supabase.from("messages").insert({
         conversation_id: conversation.id,
         business_id,
         role: "system",
         content: `Ticket created — priority: ${botReply.priority}. Reason: ${botReply.reason}`,
-    });
+      });
+
+      ticketCreated = true;
+    }
     // 9. respond to widget
     return NextResponse.json(
         {

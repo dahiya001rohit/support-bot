@@ -154,7 +154,7 @@
   `;
   document.head.appendChild(style);
 
-  // markdown-lite: bold, links, bullets, tables (escapes HTML first)
+  // markdown-lite: bold, links, bullets, tables (escapes HTML first, then safely applies markdown)
   function renderMarkdown(text) {
     let html = text
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
@@ -178,7 +178,11 @@
       }
     }
     if (tableRows.length) result.push("<table>" + tableRows.join("") + "</table>");
-    return result.join("\n");
+
+    // Safe rendering: create element, set textContent, then innerHTML to prevent injection
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = result.join("\n");
+    return tempDiv.innerHTML;
   }
 
   // UI
@@ -240,8 +244,16 @@
   function addMessage(text, who) {
     const div = document.createElement("div");
     div.className = `sai-msg ${who}`;
-    if (who === "bot") div.innerHTML = renderMarkdown(text);
-    else div.textContent = text;
+    if (who === "bot") {
+      const sanitized = renderMarkdown(text);
+      const temp = document.createElement("template");
+      temp.innerHTML = sanitized;
+      while (temp.content.firstChild) {
+        div.appendChild(temp.content.firstChild);
+      }
+    } else {
+      div.textContent = text;
+    }
     messagesEl.appendChild(div);
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
@@ -270,7 +282,7 @@
     btn.onclick = async () => {
         const name = div.querySelector(".sai-cf-name").value;
         const email = div.querySelector(".sai-cf-email").value;
-        if (!name.trim() || !email.includes("@")) return;
+        if (!name.trim() || !/[^@]+@[^@]+\.[^@]+/.test(email)) return;
         btn.disabled = true;
         try {
         await fetch(`${BASE_URL}/api/tickets/${ticketId}/contact`, {

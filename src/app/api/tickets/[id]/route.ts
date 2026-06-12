@@ -32,8 +32,11 @@ export async function PATCH(
     .select()
     .single();
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error || !data) {
+    return NextResponse.json(
+      { error: "Ticket not found or unauthorized" },
+      { status: 404 }
+    );
   }
   return NextResponse.json(data);
 }

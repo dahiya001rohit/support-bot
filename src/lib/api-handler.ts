@@ -10,8 +10,6 @@ export async function withErrorHandler(handler: ApiHandler): Promise<Response> {
   try {
     return await handler();
   } catch (error) {
-    console.error("API error:", error);
-
     // Return safe error response instead of crashing
     return NextResponse.json(
       { error: "Internal server error" },

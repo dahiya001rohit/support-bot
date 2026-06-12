@@ -34,22 +34,7 @@ export async function PATCH(
     return NextResponse.json({ error: error.message }, { status: 500, headers: corsHeaders });
   }
 
-//   const { data: t } = await supabase
-//     .from("tickets")
-//     .select("conversation_id")
-//     .eq("id", id)
-//     .single();
 
-//   if (t?.conversation_id) {
-//     await supabase
-//       .from("conversations")
-//       .update({
-//         customer_name: customer_name.trim(),
-//         customer_email: customer_email.trim(),
-//       })
-//       .eq("id", t.conversation_id)
-//       .eq("business_id", business_id);
-//   }
 
   return NextResponse.json({ ok: true }, { headers: corsHeaders });
 }

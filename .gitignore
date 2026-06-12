@@ -44,3 +44,16 @@ next-env.d.ts
 supabase/.temp/
 
 test.html
+# editor/IDE
+.vscode/
+.idea/
+
+# claude code local state (if it created any)
+.claude/
+
+# OS extras
+Thumbs.db
+
+# env files
+.env*
+!.env.example

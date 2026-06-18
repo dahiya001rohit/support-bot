@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   const supabase = supabaseAdmin();
   const { data, error } = await supabase
     .from("bot_configs")
-    .select("bot_name, welcome_message, suggested_questions")
+    .select("bot_name, welcome_message, suggested_questions, theme")
     .eq("business_id", businessId)
     .single();
 

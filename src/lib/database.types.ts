@@ -24,6 +24,7 @@ export type Database = {
           personality: string
           suggested_questions: Json | null
           welcome_message: string
+          theme: Json | null
         }
         Insert: {
           bot_name?: string
@@ -34,6 +35,7 @@ export type Database = {
           personality?: string
           suggested_questions?: Json | null
           welcome_message?: string
+          theme?: Json | null
         }
         Update: {
           bot_name?: string
@@ -44,6 +46,7 @@ export type Database = {
           personality?: string
           suggested_questions?: Json | null
           welcome_message?: string
+          theme?: Json | null
         }
         Relationships: [
           {

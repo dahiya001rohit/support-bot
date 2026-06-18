@@ -187,6 +187,8 @@ function WidgetPreview({ theme, botName }: WidgetPreviewProps) {
           display: flex;
           align-items: center;
           gap: 10px;
+          border-top-left-radius: 12px;
+          border-top-right-radius: 12px;
         }
         .preview-avatar {
           width: 32px;
@@ -244,6 +246,8 @@ function WidgetPreview({ theme, botName }: WidgetPreviewProps) {
           padding: 10px;
           gap: 7px;
           background: var(--sai-surface);
+          border-bottom-left-radius: 12px;
+          border-bottom-right-radius: 12px;
         }
         .preview-input {
           flex: 1;

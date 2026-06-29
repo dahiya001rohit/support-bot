@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono, Playfair_Display } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { startServerKeepAlive } from "@/lib/server-keep-alive";
 import "./globals.css";
@@ -11,7 +11,12 @@ if (typeof window === "undefined") {
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-body",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-display",
 });
 
 const geistMono = Geist_Mono({
